@@ -1,18 +1,4 @@
-# livebox-api
-
-Install:
-======
-
-```bash
-
-composer install
-
-```
-
-Usage:
-======
-
-```php
+<?php
 
 require __DIR__.'/../vendor/autoload.php';
 
@@ -23,5 +9,3 @@ $api = new Livebox(new Curl(), '192.168.1.1');
 $api->login('admin', 'admin');
 
 print_r($api->getInfoDSL());
-
-```

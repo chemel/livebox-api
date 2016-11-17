@@ -1,0 +1,11 @@
+{
+    "name": "alc/livebox-api",
+    "description": "Livebox API",
+    "version": "1.0.0",
+    "autoload": {
+        "psr-0": { "Alc\\Livebox": "src/" }
+    },
+    "require": {
+        "alc/curl": "dev-master"
+    }
+}
