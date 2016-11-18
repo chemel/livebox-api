@@ -61,9 +61,9 @@ class Livebox {
 	}
 
 	/**
-	 * userManagementGetUsers
+	 * makeAjaxRequest
 	 */
-	public function userManagementGetUsers() {
+	private function makeAjaxRequest( $url, $post = array() ) {
 
         $this->curl->setOptions(array(
             CURLOPT_RETURNTRANSFER => true,
@@ -72,8 +72,15 @@ class Livebox {
             ),
         ));
 
-		return $this->curl
-			->post($this->getLiveboxAddress().'/sysbus/UserManagement:getUsers', '{"parameters":{}}')->getJson();
+		return $this->curl->post($url, $post)->getJson();
+	}
+
+	/**
+	 * userManagementGetUsers
+	 */
+	public function userManagementGetUsers() {
+
+		return $this->makeAjaxRequest($this->getLiveboxAddress().'/sysbus/UserManagement:getUsers', '{"parameters":{}}');
 	}
 
 	/**
@@ -81,21 +88,28 @@ class Livebox {
 	 */
 	public function getInfoDSL() {
 
-        $this->curl->setOptions(array(
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => array(
-                'X-Context: '.$this->contextID,
-            ),
-        ));
-
-		return $this->curl
-			->post($this->getLiveboxAddress().'/sysbus/NeMo/Intf/data:getMIBs',
-				json_encode(array(
+		return $this->makeAjaxRequest($this->getLiveboxAddress().'/sysbus/NeMo/Intf/data:getMIBs', json_encode(array(
 				'parameters' => array(
 					'mibs' => 'dsl',
 					'flag' => '',
 					'traverse' => 'down',
 			)))
-				)->getJson();
+		);
+	}
+
+	/**
+	 * getDSLStats
+	 */
+	public function getDSLStats() {
+
+		return $this->makeAjaxRequest($this->getLiveboxAddress().'/sysbus/NeMo/Intf/dsl0:getDSLStats', '{"parameters":{}}');
+	}
+
+	/**
+	 * getWANStatus
+	 */
+	public function getWANStatus() {
+
+		return $this->makeAjaxRequest($this->getLiveboxAddress().'/sysbus/NMC:getWANStatus', '{"parameters":{}}');
 	}
 }
