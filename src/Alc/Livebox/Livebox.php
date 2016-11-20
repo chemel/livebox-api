@@ -112,4 +112,12 @@ class Livebox {
 
 		return $this->makeAjaxRequest($this->getLiveboxAddress().'/sysbus/NMC:getWANStatus', '{"parameters":{}}');
 	}
+
+	/**
+	 * reboot
+	 */
+	public function reboot() {
+
+		return $this->makeAjaxRequest($this->getLiveboxAddress().'/sysbus/NMC:reboot', '{"parameters":{}}');
+	}
 }
